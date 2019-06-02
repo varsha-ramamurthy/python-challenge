@@ -33,6 +33,7 @@ with open(budget_csv, newline="") as csvfile:
                 greatest_decrease=profit_loss_change
                 greatest_decrease_month=str(row[0])
         prev_net = int(row[1])
+    #calculate average change in profit/loss rounded to 2 decimal places
     net_average=round(total_net_change/(total_months-1),2)    
 print("Financial Analysis")
 print("-------------------------------------------")

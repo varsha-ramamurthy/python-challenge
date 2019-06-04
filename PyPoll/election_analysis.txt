@@ -1,0 +1,9 @@
+----------------------Election Results---------------------
+Total Votes: 3521001
+---------------------Votes polled by each candidate-----------------------
+   Candidate Khan secured 63.0% (2218231)
+   Candidate Correy secured 20.0% (704200)
+   Candidate Li secured 14.0% (492940)
+   Candidate O'Tooley secured 3.0% (105630)
+--------------------------------------------------------
+Winner: Khan wins with 2218231 votes

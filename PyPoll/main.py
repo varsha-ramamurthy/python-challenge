@@ -16,7 +16,6 @@ with open(election_csv, newline="") as csvfile:
         num_votes += 1
         candidate_votes[candidate_name] = num_votes
 
-
     print("----------------------Election Results---------------------")
     total_votes = sum(candidate_votes.values())
     print("Total Votes: " + str(total_votes))
@@ -30,3 +29,15 @@ with open(election_csv, newline="") as csvfile:
     print("-----------------------------------")
     print("Winner: " + winner_name + " wins with " + str(maximum_votes) + " votes")
     
+#export output to txt file
+   
+    txt_op = os.path.join("..\PyPoll","election_analysis.txt")
+    with open(txt_op, 'w') as txtfile:
+        txtfile.writelines('----------------------Election Results---------------------\n' + 'Total Votes: ' + str(total_votes) + '\n---------------------Votes polled by each candidate-----------------------\n')
+        for candidate_name in candidate_votes:
+            txtfile.writelines("   Candidate " + candidate_name + " secured " + str(round((candidate_votes[candidate_name]/total_votes)*100,0)) + "% (" + str(candidate_votes[candidate_name]) + ")\n")
+        txtfile.writelines("--------------------------------------------------------\n" + "Winner: " + winner_name + " wins with " + str(maximum_votes) + " votes")
+
+    with open(txt_op, 'r') as readfile:
+        print(readfile.read())
+

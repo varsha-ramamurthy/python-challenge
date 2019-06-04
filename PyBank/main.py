@@ -3,7 +3,6 @@ import csv
 print(os.path.dirname(__file__))
 os.chdir(os.path.dirname(__file__))
 budget_csv = os.path.join("..\PyBank","budget_data.csv")
-
 with open(budget_csv, newline="") as csvfile:
     csv_reader=csv.reader(csvfile,delimiter=",")
     # ignore the header
@@ -34,14 +33,22 @@ with open(budget_csv, newline="") as csvfile:
                 greatest_decrease_month=str(row[0])
         prev_net = int(row[1])
     #calculate average change in profit/loss rounded to 2 decimal places
-    net_average=round(total_net_change/(total_months-1),2)    
+    net_average=round(total_net_change/(total_months-1),2)   
+
 print("Financial Analysis")
-print("-------------------------------------------")
-print(f"Total Months:" + str(total_months))
-print(f"Total:" + str(net_total))
-print(f"Average Change: $"+ str(net_average))
-print(f"Greatest Increase in Profits: $" + str(greatest_increase) + " in" + greatest_increase_month)
-print(f"Greatest Decrease in Profits: $" + str(greatest_decrease) + " in" + greatest_decrease_month)
+print("----------------------------------------")
+print("Total Months:" + str(total_months))
+print("Total:" + str(net_total))
+print("Average Change: $"+ str(net_average))
+print("Greatest Increase in Profits: $" + str(greatest_increase) + " in " + greatest_increase_month)
+print("Greatest Decrease in Profits: $" + str(greatest_decrease) + " in " + greatest_decrease_month)
 
+#write output to txt file
+txt_op = os.path.join("..\PyBank","budget_analysis.txt")
+with open(txt_op, 'w') as txtfile:
+    txtfile.writelines('Financial Analysis \n------------------------- \nTotal Months: ' + str(total_months) + 
+      '\nTotal: ' + str(net_total) + '\nAverage Change: $' + str(net_average) + '\nGreatest Increase in Profits: $' + str(greatest_increase) + ' in' + greatest_increase_month + '\nGreatest Decrease in Profits: $' + str(greatest_decrease) + ' in ' + greatest_decrease_month)
 
-
+    
+with open(txt_op, 'r') as readfile:
+    print(readfile.read())

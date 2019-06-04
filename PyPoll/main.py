@@ -7,51 +7,26 @@ with open(election_csv, newline="") as csvfile:
     csv_reader=csv.reader(csvfile,delimiter=",")
 # ignore the header
     hdr=next(csv_reader)
-    total_votes=0
-    candidates=[]
-    votes_khan=0
-    votes_correy=0
-    votes_otooley=0
-    votes_li=0
-    percent_khan=0
-    percent_correy=0
-    percent_otooley=0
-    percent_li=0
-    most_votes=0
-    winner=""
+    candidate_votes={}
+
 #compute total sumber of votes cast, and list of candidates
     for row in csv_reader:
-        total_votes+=1
-        candidates.append(row[2])
-        if row[2]=="Khan":
-            votes_khan+=1
-        elif row[2]=="Correy":
-            votes_correy+=1
-        elif row[2]=="O'Tooley":
-            votes_otooley+=1
-        else:
-            votes_li+=1
+        candidate_name = row[2]
+        num_votes = candidate_votes.get(candidate_name, 0)
+        num_votes += 1
+        candidate_votes[candidate_name] = num_votes
 
-    percent_khan=(votes_khan/total_votes)*100
-    percent_correy=(votes_correy/total_votes)*100
-    percent_otooley=(votes_otooley/total_votes)*100
-    percent_li=(votes_li/total_votes)*100
-    most_votes=max(votes_correy,votes_khan,votes_li,votes_otooley)
-    if most_votes==votes_correy:
-        winner="Correy"
-    elif most_votes==votes_khan:
-        winner="Khan"
-    elif most_votes==votes_li:
-        winner="Li"
-    else:
-        winner="O'Tooley"
 
-    unique_candidates=set(candidates)
-    print("Election Results")
-    print("--------------------------------------")
+    print("----------------------Election Results---------------------")
+    total_votes = sum(candidate_votes.values())
     print("Total Votes: " + str(total_votes))
-    print("Khan: " + str(round(percent_khan,0)) + "%")
-    print("Correy: " + str(round(percent_correy,0)) + "%")
-    print("O'Tooley: " + str(round(percent_otooley,0)) + "%")
-    print("Li: " + str(round(percent_li,0)) + "%")
-    print("Winner: " + winner)  
+    print("---------------------Votes polled by each candidate-----------------------")
+    maximum_votes = 0
+    for candidate_name in candidate_votes:
+        print("   Candidate " + candidate_name + " secured " + str(round((candidate_votes[candidate_name]/total_votes)*100,0)) + "% (" + str(candidate_votes[candidate_name]) + ")")
+        if candidate_votes[candidate_name] > maximum_votes:
+            winner_name = candidate_name
+            maximum_votes = candidate_votes[candidate_name]
+    print("-----------------------------------")
+    print("Winner: " + winner_name + " wins with " + str(maximum_votes) + " votes")
+    
